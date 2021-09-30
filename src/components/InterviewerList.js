@@ -21,7 +21,7 @@ export default function InterviewerList(props) {
 // </section>
 //   )
       //Below refract to not pass id prop in InterviewerListItem
-      const interviewers = props.interviewers.map(interviewer => {
+   const interviewers = props.interviewers.map(interviewer => {
     return (
       <InterviewerListItem
         key={interviewer.id}
@@ -31,5 +31,6 @@ export default function InterviewerList(props) {
         setInterviewer={event => props.setInterviewer(interviewer.id)}
       />
     );
+   
   });
 };

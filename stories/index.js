@@ -9,7 +9,7 @@ import DayListItem from "components/DayListItem.js";
 import DayList from "components/DayList";
 import InterviewerListItem from "components/InterviewerListItem";
 import InterviewerList from "components/InterviewerList";
-
+import index from "components/Appointment/index";
 //_____
 storiesOf("Button", module)
   .addParameters({
@@ -139,3 +139,10 @@ storiesOf("Button", module)
             setInterviewer={action("setInterviewer")}
           />
         ));
+//_____
+storiesOf("Appointment", module)
+  .addParameters({
+  backgrounds: [{ name: "white", value: "#fff", default: true }]
+  })
+  .add("Appointment", () => <Appointment />)
+  .add("Appointment with Time", () => <Appointment time="12pm" />);
