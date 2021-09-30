@@ -23,14 +23,24 @@ export default function InterviewerList(props) {
       //Below refract to not pass id prop in InterviewerListItem
    const interviewers = props.interviewers.map(interviewer => {
     return (
+     
       <InterviewerListItem
         key={interviewer.id}
         name={interviewer.name}
         avatar={interviewer.avatar}
         selected={interviewer.id === props.interviewer}
         setInterviewer={event => props.setInterviewer(interviewer.id)}
-      />
+        />
     );
-   
   });
+
+  //makes parent instead of running in the loop= horizontal and 1 interviewer title
+return ( 
+  <section className="interviewers">
+  <h4 className="interviewers__header text--light">Interviewer</h4>
+  <ul className="interviewers__list">
+  {interviewers}
+  </ul>
+  </section>
+  );
 };
