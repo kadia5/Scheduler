@@ -8,7 +8,7 @@ export default function Status (props) {
       className="appointment__status-image"
       src="images/status.png"
       alt="Loading"
-      onClick={()=>props.onload()}
+      onClick={()=>props.onLoad()}
     />
     <h1 className="text--semi-bold">Deleting</h1>
   </main>
