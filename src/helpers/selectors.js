@@ -2,26 +2,35 @@
 //   const filteredNames = state.users.filter(user => user.day === day);
 //   return filteredNames;
 // }
-export default function getAppointmentsForDay(state, day) {
+export function getAppointmentsForDay(state, day) {
   if (!state.days.length) return [];
-  const selectedDay = state.days.find(d => d.name === day);
+  const selectedDay = state.days.find((d) => d.name === day);
+  if (!selectedDay) return [];
   const currentDayAppoinments = [];
-  for (const appointmentId of selectedDay.appointments){
+  for (const appointmentId of selectedDay.appointments) {
     // state.appointments[appointmentId];
     currentDayAppoinments.push(state.appointments[appointmentId]);
   }
   return currentDayAppoinments;
 }
 
+export function getInterviewersForDay(state, day) {
+  // console.log("state...", state)
+
+  if (!state.days.length) return [];
+  const [selectedDay] = state.days.filter((d) => d.name === day);
+  console.log("....selectedDay", selectedDay)
+  if (!selectedDay) return [];
+  const interviewers = selectedDay.interviewers.filter((id)=> id === state.interviewers[id].id)
+  console.log("select day...", selectedDay)
+  // return selectedDay.interviewers.map((interviewerId) => {
+  //   return state.interviewers[interviewerId];
+  // });
+  return interviewers.map((interviewer) => state.interviewers[interviewer])
+}
+
 export function getInterview(state, interview) {
-  const newInterview = {  
-    "student": "Lydia Miller-Jones",
-    "interviewer": {  
-      "id": 1,
-      "name": "Sylvia Palmer",
-      "avatar": "https://i.imgur.com/LpaY82x.png"
-    }
-  }
-  const selectedInterview = state.newInterview.find(i => i.interview === interview);
-  return selectedInterview || null;
+  if (!interview) return null;
+  const interviewer = state.interviewers[interview.interviewer];
+  return {...interview, interviewer};
 }

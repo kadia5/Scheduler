@@ -13,13 +13,16 @@ export default function Button(props) {
    // if (props.danger) {
    //   buttonClass += " button--danger";
    // }
+   console.log("props button_____",props)
    return (
+     
      <button
        className={buttonClass}
-       onClick={()=>props.onClick()}
+       onClick={props.onClick}
        disabled={props.disabled}
      >
        {props.children}
+       
      </button>
    );
  }

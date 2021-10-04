@@ -3,68 +3,9 @@ import axios from 'axios';
 import 'components/Application.scss';
 import DayList from 'components/DayList.js';
 import Appointment from 'components/Appointment/Index';
-import getAppointmentsForDay from 'helpers/selectors';
+import {getAppointmentsForDay, getInterviewersForDay, getInterview} from 'helpers/selectors';
 
-// const days = [
-//   {
-//     id: 1,
-//     name: "Monday",
-//     spots: 2,
-//   },
-//   {
-//     id: 2,
-//     name: "Tuesday",
-//     spots: 5,
-//   },
-//   {
-//     id: 3,
-//     name: "Wednesday",
-//     spots: 0,
-//   },
-// ];
 
-// const appointments = [
-//   {
-//     id: 1,
-//     time: "12pm",
-//   },
-//   {
-//     id: 2,
-//     time: "1pm",
-//     interview: {
-//       student: "Lydia Miller-Jones",
-//       interviewer: {
-//         id: 1,
-//         name: "Sylvia Palmer",
-//         avatar: "https://i.imgur.com/LpaY82x.png",
-//       }
-//     }
-//   },
-//   {
-//     id: 3,
-//     time: "11pm",
-//     interview: {
-//       student: "Justin Miller-Jones",
-//       interviewer: {
-//         id: 1,
-//         name: "Sylvia Palmer",
-//         avatar: "https://i.imgur.com/LpaY82x.png",
-//       }
-//     }
-//   },
-//   {
-//     id: 4,
-//     time: "10pm",
-//     interview: {
-//       student: "Just Miller-Jones",
-//       interviewer: {
-//         id: 1,
-//         name: "Sylvia Palmer",
-//         avatar: "https://i.imgur.com/LpaY82x.png",
-//       }
-//     }
-//   }
-// ];
 //props= nothing but params ex, funct that receives 2 var, once funct is called passes
 export default function Application(props) {
   // const setDays = days => setState(prev => ({ ...prev, days }));
@@ -76,7 +17,7 @@ export default function Application(props) {
   });
   // let dailyAppointments = [];
   const dailyAppointments = getAppointmentsForDay(state, state.day);
-    // const dailyInterviews = getInterview(state, appointments.interview);
+  
 
   useEffect(() => {
     // axios.get("/api/days").then(response => {
@@ -126,10 +67,13 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {dailyAppointments.map((appointment) => (
-          
-          <Appointment key={appointment.id} {...appointment} />
-        ))}
+        {dailyAppointments.map((appointment) => {
+          console.log("apointmts*****", appointment)
+          return (
+          // {const dailyInterviews = getInterview(state, appointment.interview)}
+          <Appointment key={appointment.id} {...appointment} interviewers={getInterviewersForDay(state, state.day)} interview={getInterview(state, appointment.interview)}/>
+        )}
+        )}
       </section>
     </main>
   );

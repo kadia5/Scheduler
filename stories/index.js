@@ -179,7 +179,8 @@ storiesOf("Appointment", module)
         id={1}
         time="12pm"
         interview={{ student: "Lydia Miller-Jones", interviewer }}
-        onEdit={action("onEdit")} onDelete={action("onDelete")}/>
+        onEdit={action("onEdit")} onDelete={action("onDelete")}
+        />
       <Appointment id="last" time="1pm" />
     </Fragment>
   ))
