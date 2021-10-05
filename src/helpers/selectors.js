@@ -19,10 +19,10 @@ export function getInterviewersForDay(state, day) {
 
   if (!state.days.length) return [];
   const [selectedDay] = state.days.filter((d) => d.name === day);
-  console.log("....selectedDay", selectedDay)
+  
   if (!selectedDay) return [];
   const interviewers = selectedDay.interviewers.filter((id)=> id === state.interviewers[id].id)
-  console.log("select day...", selectedDay)
+  
   // return selectedDay.interviewers.map((interviewerId) => {
   //   return state.interviewers[interviewerId];
   // });
