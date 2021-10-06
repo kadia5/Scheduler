@@ -3,40 +3,16 @@ import axios from 'axios';
 import 'components/Application.scss';
 import DayList from 'components/DayList.js';
 import Appointment from 'components/Appointment/Index';
-import {
-  getAppointmentsForDay,
-  getInterviewersForDay,
-  getInterview,
-} from 'helpers/selectors';
+import {getAppointmentsForDay,getInterviewersForDay,getInterview,} from 'helpers/selectors';
+import useApplicationData from 'hooks/useApplicationData'
 
 //props= nothing but params ex, funct that receives 2 var, once funct is called passes
 export default function Application(props) {
-  const [state, setState] = useState({
-    day: 'Monday',
-    days: [],
-    appointments: {},
-  });
+ 
+  const {state, setState, bookInterview, cancelInterview} = useApplicationData(props);
   const dailyAppointments = getAppointmentsForDay(state, state.day);
-
-  const bookInterview = (id, interview) => {
-    debugger;
-    console.log(id, interview);
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-    return axios.put(`/api/appointments/${id}`, {interview})
-    .then((res) => {
-      setState({
-      ...state,
-      appointments
-    });
-  })
-}
+  // const dailyInterviewers = getInterviewersForDay(state, state.day);
+  
 
   useEffect(() => {
     // axios.get("/api/days").then(response => {
@@ -48,16 +24,13 @@ export default function Application(props) {
     ]).then((all) => {
       // set your states here with the correct values...
       const [days, appointments, interviewers] = all;
-      console.log('days_____', days);
+
       setState((prev) => ({
         ...prev,
         days: all[0].data,
         appointments: all[1].data,
         interviewers: all[2].data,
       }));
-      console.log(all[0]); // first
-      console.log(all[1]); // second
-      console.log(all[2]); // third
     });
   });
   // }, []);
@@ -95,12 +68,12 @@ export default function Application(props) {
               interviewers={getInterviewersForDay(state, state.day)}
               interview={getInterview(state, appointment.interview)}
               bookInterview={bookInterview}
-              
-              
-              
+              cancelInterview={cancelInterview}
+
             />
           );
         })}
+        <Appointment key='last' time='5pm'/>
       </section>
     </main>
   );

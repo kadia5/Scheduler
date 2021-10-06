@@ -13,7 +13,7 @@ export default function Button(props) {
    // if (props.danger) {
    //   buttonClass += " button--danger";
    // }
-   console.log("props button_____",props)
+   
    return (
      
      <button

@@ -1,8 +1,13 @@
 import React from 'react';
 import 'components/InterviewerList.scss';
 import InterviewerListItem from 'components/InterviewerListItem';
-
+import PropTypes from 'prop-types';
 export default function InterviewerList(props) {
+ 
+  
+ 
+  
+  
 //call a loop/map that calls intervieListItem for each list item
 //   return (
 // <section className="interviewers">
@@ -32,15 +37,19 @@ export default function InterviewerList(props) {
         setInterviewer={event => props.setInterviewer(interviewer)}
         />
     );
+    //pass in interviewer.id above
   });
 
   //makes parent instead of running in the loop= horizontal and 1 interviewer title
-return ( 
-  <section className="interviewers">
+  return ( 
+    <section className="interviewers">
   <h4 className="interviewers__header text--light">Interviewer</h4>
   <ul className="interviewers__list">
   {interviewers}
   </ul>
   </section>
   );
+};
+InterviewerList.propTypes = {
+  interviewers: PropTypes.array.isRequired
 };
