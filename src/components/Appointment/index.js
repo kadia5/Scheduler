@@ -88,6 +88,5 @@ export default function Appointment(props) {
     </Fragment>
   );
 }
-//cant find the interview value so student has no value
 
-// {/* {props.interview ?  <Show student={props.interview.student} interviewer={props.interview.interviewer} onEdit={props.onEdiEdit={props.onDelete}/> : <Empty onAdd={props.onAdd}/>} */
+
