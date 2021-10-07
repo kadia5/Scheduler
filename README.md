@@ -2,9 +2,9 @@
 
 Scheduler is a simple React based application, used for scheduling appointments.
 
-!["Screenshot of Appontment creation box"](https://github.com/kadia5/Scheduler/blob/master/docs/appointment-creation.png)
-
 !["Screenshot of Appointment"](https://github.com/kadia5/Scheduler/blob/master/docs/appointment-form.png)
+
+!["Screenshot of Appontment creation box"](https://github.com/kadia5/Scheduler/blob/master/docs/appointment-creation.png)
 
 ## Setup
 
