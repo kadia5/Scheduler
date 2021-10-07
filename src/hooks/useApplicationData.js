@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import axios from 'axios';
-// import Application from 'components/Application';
 
 export default function useApplicationData(props) {
   const [state, setState] = useState({
@@ -23,7 +22,7 @@ export default function useApplicationData(props) {
         ...state,
         appointments,
       });
-       updateSpots()
+      updateSpots();
     });
   };
   const cancelInterview = (id) => {
@@ -36,13 +35,12 @@ export default function useApplicationData(props) {
       ...state.appointments,
       [id]: appointment,
     };
-    return axios.delete(`/api/appointments/${id}`, props.id)
-    .then((res) => {
+    return axios.delete(`/api/appointments/${id}`, props.id).then((res) => {
       setState({
         ...state,
         appointments,
       });
-      updateSpots()
+      updateSpots();
     });
   };
   const updateSpots = () => {
@@ -56,5 +54,4 @@ export default function useApplicationData(props) {
   };
 
   return {state, setState, bookInterview, cancelInterview, updateSpots};
-   
 }

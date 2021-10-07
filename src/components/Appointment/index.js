@@ -5,7 +5,6 @@ import Empty from 'components/Appointment/Empty';
 import Show from 'components/Appointment/Show';
 import Form from 'components/Appointment/Form';
 import useVisualMode from 'hooks/useVisualMode';
-// import useApplicationData from 'hook/useApplicationData'
 import Status from 'components/Appointment/Status';
 import Confirm from 'components/Appointment/Confirm';
 
@@ -30,7 +29,8 @@ export default function Appointment(props) {
       interviewer,
     };
     transition(SAVING);
-      props.bookInterview(props.id, interview)
+    props
+      .bookInterview(props.id, interview)
       .then(() => {
         transition(SHOW);
       })
@@ -39,37 +39,37 @@ export default function Appointment(props) {
 
   const cancelInterview = () => {
     transition(DELETING, true);
-      props.cancelInterview(props.id)
+    props
+      .cancelInterview(props.id)
       .then(() => {
         transition(EMPTY);
       })
       .catch((error) => transition(ERROR_DELETE, true));
   };
 
-  //declare a function
-
   return (
     <Fragment>
       <article className="appointment">
         <Header time={props.time}></Header>
-        
+
         {mode === EMPTY && (
-          <Empty
-            onAdd={() => transition(CREATE)}
-            onCancel={back}
-          />
+          <Empty onAdd={() => transition(CREATE)} onCancel={back} />
         )}
 
         {mode === SHOW && (
           <Show
             student={props.interview.student}
             interviewer={props.interview.interviewer}
-            onDelete={()=> transition(CONFIRM)}
-            onEdit={()=> transition(EDIT)}
+            onDelete={() => transition(CONFIRM)}
+            onEdit={() => transition(EDIT)}
           />
         )}
         {mode === CREATE && (
-          <Form interviewers={props.interviewers} onSave={save} onCancel={back}/>
+          <Form
+            interviewers={props.interviewers}
+            onSave={save}
+            onCancel={back}
+          />
         )}
 
         {mode === EDIT && (
@@ -82,11 +82,15 @@ export default function Appointment(props) {
         )}
 
         {mode === SAVING && <Status message="Saving..." />}
-        {mode === DELETING && <Status message="Canceling..." />}
-      {mode === CONFIRM && <Confirm message="Are you sure you'd like to delete..." onCancel={back} onConfirm={()=>cancelInterview()}/>} 
+        {mode === DELETING && <Status message="Cancelling..." />}
+        {mode === CONFIRM && (
+          <Confirm
+            message="Are you sure you'd like to delete..."
+            onCancel={back}
+            onConfirm={() => cancelInterview()}
+          />
+        )}
       </article>
     </Fragment>
   );
 }
-
-

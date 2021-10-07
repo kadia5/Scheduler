@@ -3,26 +3,24 @@ import axios from 'axios';
 import 'components/Application.scss';
 import DayList from 'components/DayList.js';
 import Appointment from 'components/Appointment/Index';
-import {getAppointmentsForDay,getInterviewersForDay,getInterview,} from 'helpers/selectors';
-import useApplicationData from 'hooks/useApplicationData'
+import {
+  getAppointmentsForDay,
+  getInterviewersForDay,
+  getInterview,
+} from 'helpers/selectors';
+import useApplicationData from 'hooks/useApplicationData';
 
-//props= nothing but params ex, funct that receives 2 var, once funct is called passes
 export default function Application(props) {
- 
-  const {state, setState, bookInterview, cancelInterview} = useApplicationData(props);
+  const {state, setState, bookInterview, cancelInterview} =
+    useApplicationData(props);
   const dailyAppointments = getAppointmentsForDay(state, state.day);
-  // const dailyInterviewers = getInterviewersForDay(state, state.day);
-  
 
   useEffect(() => {
-    // axios.get("/api/days").then(response => {
-    //  return setDays(response.data);
     Promise.all([
       axios.get('/api/days'),
       axios.get('/api/appointments'),
       axios.get('/api/interviewers'),
     ]).then((all) => {
-      // set your states here with the correct values...
       const [days, appointments, interviewers] = all;
 
       setState((prev) => ({
@@ -33,7 +31,6 @@ export default function Application(props) {
       }));
     });
   });
-  // }, []);
 
   return (
     <main className="layout">
@@ -48,7 +45,6 @@ export default function Application(props) {
           <DayList
             days={state.days}
             day={state.day}
-            //makes new obj with prev state on it
             setDay={(day) => setState({...state, day})}
           />
         </nav>
@@ -61,7 +57,6 @@ export default function Application(props) {
       <section className="schedule">
         {dailyAppointments.map((appointment) => {
           return (
-            // {const dailyInterviews = getInterview(state, appointment.interview)}
             <Appointment
               key={appointment.id}
               {...appointment}
@@ -69,16 +64,11 @@ export default function Application(props) {
               interview={getInterview(state, appointment.interview)}
               bookInterview={bookInterview}
               cancelInterview={cancelInterview}
-
             />
           );
         })}
-        <Appointment key='last' time='5pm'/>
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
 }
-//  {/* {dailyInterviews.map((interview) => (
-
-//  <Interview key={interview.id} {...newInterview} interview={appointments.interview} />
-// ))} */}
