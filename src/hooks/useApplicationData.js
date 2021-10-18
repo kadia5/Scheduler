@@ -17,16 +17,24 @@ export default function useApplicationData(props) {
       ...state.appointments,
       [id]: appointment,
     };
-    return axios.put(`/api/appointments/${id}`, {interview}).then((res) => {
+    
+    return new Promise((resolve, reject) =>{  
+      axios.put(`/api/appointments/${id}`, {interview}).then((res) => {
       setState({
         ...state,
         appointments,
       });
       updateSpots();
-    });
+      resolve('success');
+    }).catch((error)=> 
+    
+    { console.log('err ......', error)
+    reject(error)}
+    )});
+   
   };
   const cancelInterview = (id) => {
-    debugger;
+    
     const appointment = {
       ...state.appointments[id],
       interview: null,

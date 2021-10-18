@@ -7,6 +7,7 @@ import Form from 'components/Appointment/Form';
 import useVisualMode from 'hooks/useVisualMode';
 import Status from 'components/Appointment/Status';
 import Confirm from 'components/Appointment/Confirm';
+import Error from 'components/Appointment/Error';
 
 export default function Appointment(props) {
   const EMPTY = 'EMPTY';
@@ -34,7 +35,10 @@ export default function Appointment(props) {
       .then(() => {
         transition(SHOW);
       })
-      .catch((error) => transition(ERROR_SAVE, true));
+      .catch((error) => {
+        console.log('err+++++', error)
+        transition(ERROR_SAVE, true)}
+        );
   };
 
   const cancelInterview = () => {
@@ -82,7 +86,19 @@ export default function Appointment(props) {
         )}
 
         {mode === SAVING && <Status message="Saving..." />}
+        {mode === ERROR_SAVE && (
+          <Error
+            message='error occured while attempting to save appointment'
+            onClose={back}
+          />
+        )}
         {mode === DELETING && <Status message="Cancelling..." />}
+        {mode === ERROR_DELETE && (
+          <Error
+            message='error occured while attempting to delete appointment'
+            onClose={back}
+          />
+        )}
         {mode === CONFIRM && (
           <Confirm
             message="Are you sure you'd like to delete..."
